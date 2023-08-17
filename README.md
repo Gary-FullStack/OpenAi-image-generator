@@ -11,7 +11,7 @@
 
  2. take your api secret key and add it to line one in the js file.  ( Remember, ALWAYS secure your secret keys before publishing to the web.)
 
-3.  Open Ai is pretty tame, so dont ecpect it to work wonders with your requests.
+3.  Open Ai is pretty tame, so dont expect it to work wonders with your requests.
 
 
 
