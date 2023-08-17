@@ -1,4 +1,4 @@
-const apiKey = "SECRET GOES HERE";
+const apiKey = "ADD SECRET API KEY HERE";
 const apiUrl = "https://api.openai.com/v1/images/generations";
 
 const form = document.querySelector("form");
@@ -37,14 +37,38 @@ function generateImage(prompt) {
     }),
   })
     .then(response => response.json())
-    .then(data => handleImage(data))
+    .then(data => handleImage(data.data[0].url, prompt))
     .catch(error => handleError(error));
 }
 
-function handleImage(img) {
-  console.log(img)
-    
-    
+function handleImage(img, prompt) {
+  main.style.display = 'block';
+  main.innerHTML = 
+    `<img src="${img}" alt="generated image ${prompt}">
+    `;
+  
+  
+  inputPrompt.value = '';
+  form.classList.remove('disabled');
+  handleRecents(img, prompt);
+}
+
+function handleRecents(image, prompt) {
+  recents.style.display = "block";
+  recentsUL.innerHTML = '';
+  recentImages.reverse();
+  recentImages.push({ image: image, prompt: prompt, });
+  recentImages.reverse().forEach(recent => {
+    recentsUL.innerHTML +=
+      `
+      <li>
+        <a href="${recent.image}" target="_blank" title="${recent.prompt}">
+          <img src="${recent.image}" alt="Generated image for ${recent.prompt}">
+        </a>
+      </li>
+      `
+  })
+  
 }
 
 function handleError(msg) {
